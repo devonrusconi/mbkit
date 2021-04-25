@@ -12,13 +12,23 @@ export default {
 const Template: Story<CurrencyInputProps> = args => <CurrencyInput {...args} />;
 
 const defaultArgs: CurrencyInputProps = {
-    locale: 'US-en',
+    locale: 'en-US',
     currencyCode: 'USD',
-    value: '',
-    onChange: () => {},
+    value: 0,
+    onChange: () => {
+        console.log('this will update the value for the currency input');
+    },
+    invalid: false,
 };
 
-export const CurrencyInputUS = Template.bind({});
-CurrencyInputUS.args = {
+export const USACurrencyInput = Template.bind({});
+USACurrencyInput.args = {
     ...defaultArgs,
+};
+
+export const FranceCurrencyInput = Template.bind({});
+FranceCurrencyInput.args = {
+    ...defaultArgs,
+    locale: 'fr-FR',
+    currencyCode: 'EUR',
 };

@@ -15,7 +15,7 @@ import styles from './CurrencyInput.scss';
 export type CurrencyInputProps = InputHTMLAttributes<HTMLInputElement> &
     RefAttributes<HTMLInputElement> & {
         /** Value that is displayed in text input */
-        value: string;
+        value: number;
         /** Fires when user interacts with value in input field */
         onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 
@@ -29,7 +29,7 @@ export type CurrencyInputProps = InputHTMLAttributes<HTMLInputElement> &
     };
 export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
     (props: CurrencyInputProps, ref: RefObject<HTMLInputElement>) => {
-        const { locale, currencyCode } = props;
+        const { locale, currencyCode, value, onChange, invalid } = props;
 
         function CurrencySymbol({
             symbol,
@@ -40,6 +40,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
         }) {
             return (
                 <span
+                    datatest-id="currency-symbol"
                     className={`${styles.currencySymbol} ${
                         currencySymbolDisplaySide === 'left' ? styles.currencySymbolLeft : styles.currencySymbolRight
                     } ${styles.flexCenteredContent}`}
@@ -48,14 +49,37 @@ export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
                 </span>
             );
         }
+        function inputValueFormatter(value: number, locale: string) {
+            const currencyOptions = new Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: currencyCode,
+            }).resolvedOptions() as Intl.NumberFormatOptions;
+
+            return new Intl.NumberFormat(locale, {
+                ...currencyOptions,
+                style: 'decimal',
+            }).format(value);
+        }
 
         const currencySymbolInfo = NumberLocalizationUtils.getCurrencySymbolInfo(locale, currencyCode);
-
         return (
-            <div className={styles.currencyInput}>
-                {currencySymbolInfo.currencySymbolDisplaySide === 'left' && <CurrencySymbol {...currencySymbolInfo} />}
-                <Input value="" onChange={() => {}} />
-                {currencySymbolInfo.currencySymbolDisplaySide === 'right' && <CurrencySymbol {...currencySymbolInfo} />}
+            <div className={styles.currencyInput} datatest-id={'currency-input'}>
+                {currencySymbolInfo.currencySymbolDisplaySide === 'left' && (
+                    <CurrencySymbol {...currencySymbolInfo} datatest-id={'currency-symbol-left'} />
+                )}
+                <Input
+                    className={`${styles.inputField} ${
+                        currencySymbolInfo.currencySymbolDisplaySide === 'left'
+                            ? styles.inputFieldLeft
+                            : styles.inputFieldRight
+                    }`}
+                    value={inputValueFormatter(value, locale)}
+                    onChange={onChange}
+                    invalid={invalid}
+                />
+                {currencySymbolInfo.currencySymbolDisplaySide === 'right' && (
+                    <CurrencySymbol {...currencySymbolInfo} datatest-id={'currency-symbol-right'} />
+                )}
             </div>
         );
     },

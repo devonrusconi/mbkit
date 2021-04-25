@@ -7,10 +7,26 @@
 .currencyInput {
     display: flex;
     
-    input{
+    
+    .inputField{
         max-width: 360px;
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
+        &Left {
+            border-radius: 0 3px 3px 0;
+        }
+    
+        &Right {
+            border-radius: 3px 0 0 3px;
+        }
+    }       
+    
+    .disabled {
+        background: $neutral-lighter;
+        color: $neutral-darker;
+        border-color: $neutral-lighter;
+        border-radius: 3px;
+        user-select: none;    
+        transition: border .5s, 
+        background-color 1s ease-in;    
     }
 
     .currencySymbol {
@@ -36,15 +52,5 @@
             border-left: none;
             border-radius: 0 3px 3px 0;
         }
-    }
-    
-    .disabled {
-        background: $neutral-lighter;
-        color: $neutral-darker;
-        border-color: $neutral-lighter;
-        border-radius: 3px;
-        user-select: none;    
-        transition: border .5s, 
-        background-color 1s ease-in;    
     }
 }

@@ -24,18 +24,16 @@ class NumberLocalizationUtils {
         });
         const formattedZeroCurrency = currencyFormat.format(0);
         const formattedZero = new Intl.NumberFormat(locale, {
-            ...currencyFormat.resolvedOptions(),
+            ...(currencyFormat.resolvedOptions() as Intl.NumberFormatOptions),
             style: 'decimal',
         }).format(0);
 
         const symbol = formattedZeroCurrency.replace(formattedZero, '').trim();
-
         const zeroIndex = formattedZeroCurrency.indexOf(formattedZero);
         let currencySymbolDisplaySide: CurrencySymbolSide = 'left';
         if (zeroIndex === 0) {
             currencySymbolDisplaySide = 'right';
         }
-
         return {
             symbol,
             currencySymbolDisplaySide,
