@@ -11,9 +11,25 @@ export default {
 
 const Template: Story<DatePickerProps> = args => <DatePicker {...args} />;
 
-const defaultArgs: DatePickerProps = {};
+const defaultArgs: DatePickerProps = {
+    label: 'Date Picker',
+    placeHolder: 'Select Date...',
+};
 
-export const DatePickerType = Template.bind({});
-DatePickerType.args = {
+export const DatePickerUS = Template.bind({});
+DatePickerUS.args = {
     ...defaultArgs,
+    calendarType: 'US',
+};
+
+export const DatePickerAribic = Template.bind({});
+DatePickerAribic.args = {
+    ...defaultArgs,
+    calendarType: 'Arabic',
+};
+
+export const DatePickerHebrew = Template.bind({});
+DatePickerHebrew.args = {
+    ...defaultArgs,
+    calendarType: 'Hebrew',
 };
