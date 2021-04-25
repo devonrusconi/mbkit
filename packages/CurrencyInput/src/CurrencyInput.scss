@@ -1,0 +1,50 @@
+@import '~@mbkit/theme/dist/theme.scss';
+@import '~@reach/dialog/styles.css';
+
+
+
+
+.currencyInput {
+    display: flex;
+    
+    input{
+        max-width: 360px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .currencySymbol {
+        padding: 0 8px 0 8px;
+        height: 36.5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: $neutral-light;
+        box-sizing: border-box;
+        display: flex;
+        // horizontal
+        align-items: center;
+        // vertical
+        justify-content: center;
+    
+    
+        &Left {
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+        }
+    
+        &Right {
+            border-left: none;
+            border-radius: 0 3px 3px 0;
+        }
+    }
+    
+    .disabled {
+        background: $neutral-lighter;
+        color: $neutral-darker;
+        border-color: $neutral-lighter;
+        border-radius: 3px;
+        user-select: none;    
+        transition: border .5s, 
+        background-color 1s ease-in;    
+    }
+}
