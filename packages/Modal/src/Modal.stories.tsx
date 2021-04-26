@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Modal } from './index';
 import { ModalProps } from './Modal';
+import { SlideoutModal, SlideoutModalProps } from './SlideOutModal';
 
 export default {
     title: 'Components/Modal',
@@ -82,66 +83,73 @@ const fewChilren = (
     </>
 );
 
-const Template: Story<ModalProps> = args => <Modal {...args} />;
+const ModalTemplate: Story<ModalProps> = args => <Modal {...args} />;
+const SlideOutModalTemplate: Story<SlideoutModalProps> = args => <SlideoutModal {...args} />;
 
-const defaultArgs: ModalProps = {
+const modalDefaultArgs: ModalProps = {
     show: true,
     size: 1,
-    onClose: () => { console.log('On close prop called. Here you would use your state setter to change the prop of `show`') },
+    onClose: () => {
+        console.log('On close prop called. Here you would use your state setter to change the prop of `show`');
+    },
     label: 'Modal with many children',
     children: manyChildren,
     reachDialogOverlayProps: {
         dangerouslyBypassScrollLock: false,
         dangerouslyBypassFocusLock: false,
-    }
+    },
 };
 
-export const ManyChildren = Template.bind({});
+const slideoutModalDefaultArgs: SlideoutModalProps = {
+    show: true,
+    size: 1,
+    onClose: () => {
+        console.log('On close prop called. Here you would use your state setter to change the prop of `show`');
+    },
+    label: 'Modal with many children',
+    children: manyChildren,
+    reachDialogOverlayProps: {
+        dangerouslyBypassScrollLock: false,
+        dangerouslyBypassFocusLock: false,
+    },
+};
+export const ManyChildren = ModalTemplate.bind({});
 ManyChildren.args = {
-    ...defaultArgs,
+    ...modalDefaultArgs,
     children: manyChildren,
 };
 
-export const FewChildren = Template.bind({});
+export const FewChildren = ModalTemplate.bind({});
 FewChildren.args = {
-    ...defaultArgs,
+    ...modalDefaultArgs,
     label: 'Modal with few children',
     children: fewChilren,
 };
 
-export const WithHeaderAndFooter = Template.bind({});
+export const WithHeaderAndFooter = ModalTemplate.bind({});
 WithHeaderAndFooter.args = {
-    ...defaultArgs,
+    ...modalDefaultArgs,
     label: 'Modal with a header and footer',
-    header: (
-        <>
-            I have a head
-        </>
-    ),
-    footer: (
-        <>
-            I have a footer
-        </>
-    )
+    header: <>I have a head</>,
+    footer: <>I have a footer</>,
 };
 
-export const WithHeader = Template.bind({});
+export const WithHeader = ModalTemplate.bind({});
 WithHeader.args = {
-    ...defaultArgs,
+    ...modalDefaultArgs,
     label: 'Modal with a header',
-    header: (
-        <>
-            I have a head
-        </>
-    )
+    header: <>I have a head</>,
 };
-export const WithFooter = Template.bind({});
+export const WithFooter = ModalTemplate.bind({});
 WithFooter.args = {
-    ...defaultArgs,
+    ...modalDefaultArgs,
     label: 'Modal with a footer',
-    footer: (
-        <>
-            I have a footer
-        </>
-    )
+    footer: <>I have a footer</>,
+};
+
+export const SlideoutWithFooter = SlideOutModalTemplate.bind({});
+SlideoutWithFooter.args = {
+    ...slideoutModalDefaultArgs,
+    label: 'Modal with a footer',
+    footer: <>I have a footer</>,
 };
