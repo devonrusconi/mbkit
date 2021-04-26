@@ -34,7 +34,7 @@ type TransitionValues = {
     exited: object;
     unmounted?: object;
 };
-var width: number | undefined = 0;
+
 const veilTransitions: TransitionValues = {
     entering: {
         opacity: 0,
@@ -51,25 +51,6 @@ const veilTransitions: TransitionValues = {
     },
     exited: {
         opacity: 0,
-    },
-};
-const slideOutModalTransitions: TransitionValues = {
-    entering: {
-        opacity: 0,
-        transform: 'translate3d(calc(1168px - 960px), 0, 0)',
-    },
-    entered: {
-        opacity: 1,
-        transform: 'translate3d(0,0,0)',
-        padding: '32px',
-    },
-    exiting: {
-        opacity: 0,
-        transform: 'translate3d(100%, 0, 0)',
-    },
-    exited: {
-        opacity: 1,
-        transform: 'translate3d(0, 0, 0)',
     },
 };
 
@@ -112,7 +93,6 @@ export const SlideoutModal: FC<SlideoutModalProps> = forwardRef(
 
         // Using own internal state that is ultimately derived from `show` prop because animations
         const [internalShow, setInternalShow] = React.useState(show);
-        width = document.getElementById('modal-container')?.offsetWidth;
 
         React.useEffect(() => {
             if (show) {
@@ -138,6 +118,28 @@ export const SlideoutModal: FC<SlideoutModalProps> = forwardRef(
             [styles.veil]: true,
             [veilProps.className || '']: veilProps.className,
         });
+
+        //Grabs the width of the container for slide out anamation
+        var width = document.getElementById('modal-container')?.offsetWidth;
+        const slideOutModalTransitions: TransitionValues = {
+            entering: {
+                opacity: 0,
+                transform: 'translate3d(calc(' + width + 'px - 960px), 0, 0)',
+            },
+            entered: {
+                opacity: 1,
+                transform: 'translate3d(0,0,0)',
+            },
+            exiting: {
+                opacity: 0,
+                transform: 'translate3d(100%, 0, 0)',
+            },
+            exited: {
+                opacity: 1,
+                transform: 'translate3d(0, 0, 0)',
+            },
+        };
+
         return (
             <div id="modal-container">
                 <Transition in={show} timeout={duration}>
