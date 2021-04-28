@@ -1,0 +1,100 @@
+@import '~@mbkit/theme/dist/theme.scss';
+
+.table {
+    line-height: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $font-family;
+
+    tbody tr td a {
+        color: $neutral-darker;
+    }
+
+    thead th {
+        text-transform: uppercase;
+        font-size: 11px;
+        color:  $neutral-darker;
+        font-weight: 300;
+        background: $neutral-lightest;
+        padding: 8px 16px;
+        text-align: left;
+        border-bottom: 1px solid  $neutral-light;
+
+        &:first-child, &:last-child {
+            border-radius: 3px 3px 0 0;
+        }
+    }
+
+    tbody tr {
+        border-bottom: 1px solid $neutral-light;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:nth-child(even) td {
+            background-color: $neutral-lightest
+        }
+        td {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 400;
+            background-color: #fff;
+            color: $neutral-darkest;
+
+            a {
+                color: $neutral-darker
+            }
+        }
+    } 
+}
+.centerContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    height: 16px;
+    display: flex;
+    align-items: center;
+    &.sortable {
+        cursor: pointer;
+    }
+    .sortNone {
+        margin-left: 8 / 2;
+    }
+}
+.noTextWrap {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    max-width: 120px;
+    text-overflow: ellipsis;
+}
+.tipsyText {
+    text-decoration: underline dashed;
+}
+.phoneWrapper {
+    min-width: 120px;
+}
+.expirationDot {
+    @extend .centerContent;
+
+    &:after {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: none;
+    }
+
+    &.show:after {
+        background: $error-base;
+    }
+}
+.email {
+    @extend .centerContent;
+    position: relative;
+}
