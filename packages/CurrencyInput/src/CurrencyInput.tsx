@@ -40,7 +40,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
         }) {
             return (
                 <span
-                    datatest-id="currency-symbol"
+                    data-testid="currency-symbol"
                     className={`${styles.currencySymbol} ${
                         currencySymbolDisplaySide === 'left' ? styles.currencySymbolLeft : styles.currencySymbolRight
                     } ${styles.flexCenteredContent}`}
@@ -63,11 +63,12 @@ export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
 
         const currencySymbolInfo = NumberLocalizationUtils.getCurrencySymbolInfo(locale, currencyCode);
         return (
-            <div className={styles.currencyInput} datatest-id={'currency-input'}>
+            <div data-testid={'currency-input-wrapper'} className={styles.currencyInput}>
                 {currencySymbolInfo.currencySymbolDisplaySide === 'left' && (
-                    <CurrencySymbol {...currencySymbolInfo} datatest-id={'currency-symbol-left'} />
+                    <CurrencySymbol {...currencySymbolInfo} data-testid={'currency-symbol-left'} />
                 )}
                 <Input
+                    data-testid={'currency-input'}
                     className={`${styles.inputField} ${
                         currencySymbolInfo.currencySymbolDisplaySide === 'left'
                             ? styles.inputFieldLeft
@@ -78,7 +79,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = forwardRef(
                     invalid={invalid}
                 />
                 {currencySymbolInfo.currencySymbolDisplaySide === 'right' && (
-                    <CurrencySymbol {...currencySymbolInfo} datatest-id={'currency-symbol-right'} />
+                    <CurrencySymbol {...currencySymbolInfo} data-testid={'currency-symbol-right'} />
                 )}
             </div>
         );

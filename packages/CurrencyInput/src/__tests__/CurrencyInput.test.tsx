@@ -8,9 +8,9 @@ const spy = jest.fn();
 describe('<CurrencyInputField/>', () => {
     it('renders', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={0} onChange={spy} locale={'en-US'} currencyCode={'USD'} data-testid="test" />,
+            <CurrencyInput value={0} onChange={spy} locale={'en-US'} currencyCode={'USD'} />,
         );
-        expect(getByTestId('test').nodeName).toBe('CurrencyInput');
+        expect(getByTestId('currency-input-wrapper').nodeName).toBe('DIV');
     });
     it('should render and be able to pass expected props', () => {
         const changeSpy = jest.fn();
@@ -19,19 +19,14 @@ describe('<CurrencyInputField/>', () => {
         const expectedValue = 0;
         const { getByTestId } = render(
             <CurrencyInput
-                data-testid="test"
                 currencyCode="USD"
                 locale="en-US"
                 value={expectedValue}
                 onChange={changeSpy}
-                onFocus={focusSpy}
-                onBlur={blurSpy}
                 className="customClassName"
-                data-randomprop="testing"
             />,
         );
-        const input = getByTestId('test');
-
+        const input = getByTestId('currency-input-wrapper');
         expect(input.classList.contains('customClassName')).toBe(true);
         expect(input.getAttribute('value')).toBe(expectedValue);
 
@@ -47,43 +42,36 @@ describe('<CurrencyInputField/>', () => {
         expect(blurSpy).toHaveBeenCalledTimes(0);
         input.blur();
         expect(blurSpy).toHaveBeenCalledTimes(1);
-
-        expect(input.getAttribute('data-randomprop')).toBe('testing');
-    });
-
-    describe('renders input', () => {
-        const { getByTestId } = render(<Input value="" onChange={spy} data-testid="test" />);
-        expect(getByTestId('test').nodeName).toBe('INPUT');
     });
 
     it('has correct currency symbol for EUR, France and apperars on the right of the input field', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={0} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} data-testid="test" />,
+            <CurrencyInput value={0} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} />,
         );
 
-        expect(getByTestId('currency-symbol')).toBe('€');
+        expect(getByTestId('currency-symbol').textContent).toBe('€');
     });
 
     it('has correct currency symbol for USA, Dollar and apperars on the left of the input field', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={0} onChange={spy} locale={'en-us'} currencyCode={'USD'} data-testid="test" />,
+            <CurrencyInput value={0} onChange={spy} locale={'en-us'} currencyCode={'USD'} />,
         );
 
-        expect(getByTestId('currency-symbol')).toBe('$');
+        expect(getByTestId('currency-symbol').textContent).toBe('$');
     });
 
     it('correctly formats the input value for USD', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={0} onChange={spy} locale={'en-us'} currencyCode={'USD'} data-testid="test" />,
+            <CurrencyInput value={555} onChange={spy} locale={'en-us'} currencyCode={'USD'} />,
         );
 
-        expect(getByTestId('currency-symbol-left')).toContain('.');
+        expect(getByTestId('currency-input').textContent).toContain('.');
     });
 
     it('correctly formats the input value for french EUR', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={0} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} data-testid="test" />,
+            <CurrencyInput value={1265} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} />,
         );
-        expect(getByTestId('currency-symbol-right')).toContain(',');
+        expect(getByTestId('currency-input').textContent).toContain(',');
     });
 });

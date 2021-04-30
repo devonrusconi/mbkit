@@ -1,0 +1,26 @@
+@import '~@mbkit/theme/dist/theme.scss';
+
+//have to specificity twice to counter core styling.
+:global(.container) fieldset.fieldset, fieldset.fieldset.fieldset {
+    border: none;
+    position: relative;
+    margin: 0 0 8px 0;
+    padding: 0;
+    white-space: normal;
+
+    label.label {
+        font-family: $font-family;
+        font-size: 12px;
+        padding-left: 8px;
+        line-height: 18px;
+        min-height: 18px;
+        display: inline-flex;
+        align-items: center;
+        color: $neutral-darker;
+        margin-bottom: 8px/2;
+
+        & .labelText {
+            margin-right: 4px;
+        }
+    }
+}
