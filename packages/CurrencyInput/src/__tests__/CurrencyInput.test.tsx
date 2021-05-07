@@ -18,16 +18,9 @@ describe('<CurrencyInputField/>', () => {
         const blurSpy = jest.fn();
         const expectedValue = 0;
         const { getByTestId } = render(
-            <CurrencyInput
-                currencyCode="USD"
-                locale="en-US"
-                value={expectedValue}
-                onChange={changeSpy}
-                className="customClassName"
-            />,
+            <CurrencyInput currencyCode="USD" locale="en-US" value={expectedValue} onChange={changeSpy} />,
         );
         const input = getByTestId('currency-input-wrapper');
-        expect(input.classList.contains('customClassName')).toBe(true);
         expect(input.getAttribute('value')).toBe(expectedValue);
 
         const newValue = 'new value';
@@ -62,7 +55,7 @@ describe('<CurrencyInputField/>', () => {
 
     it('correctly formats the input value for USD', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={555} onChange={spy} locale={'en-us'} currencyCode={'USD'} />,
+            <CurrencyInput value={5.55} onChange={spy} locale={'en-us'} currencyCode={'USD'} />,
         );
 
         expect(getByTestId('currency-input').textContent).toContain('.');
@@ -70,7 +63,7 @@ describe('<CurrencyInputField/>', () => {
 
     it('correctly formats the input value for french EUR', () => {
         const { getByTestId } = render(
-            <CurrencyInput value={1265} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} />,
+            <CurrencyInput value={parseInt('12,65')} onChange={spy} locale={'fr-FR'} currencyCode={'EUR'} />,
         );
         expect(getByTestId('currency-input').textContent).toContain(',');
     });

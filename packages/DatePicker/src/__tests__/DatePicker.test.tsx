@@ -7,7 +7,7 @@ describe('DatePicker', () => {
         const { getByTestId } = render(<DatePicker label="date picker" data-testid="datepicker" />);
         const datepicker = getByTestId('datepicker');
         expect(datepicker).toBeTruthy();
-        expect(datepicker.nodeName).toBe('DATEPICKER');
+        expect(datepicker.nodeName).toBe('DIV');
     });
     it('should pass all props through', () => {
         const { getByTestId } = render(

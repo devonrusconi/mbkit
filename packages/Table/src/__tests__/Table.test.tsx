@@ -9,7 +9,7 @@ describe('Table', () => {
             <Table data-testid={'Test'} records={data} headers={getHeaders()} uniqueRecordKey="test-key" />,
         );
 
-        expect(getByText('Test')).not.toBe(null);
+        expect(getByText('Fishing')).not.toBe(null);
         expect(getByText('Test').nodeName).toBe('TABLE');
     });
 });
